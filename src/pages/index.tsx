@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HomeContainer, Product, InfoProduct, ButtonAddBag } from "styles/pages/home";
+import { HomeContainer, Product, InfoProduct } from "styles/pages/home";
 import { useKeenSlider } from 'keen-slider/react'
 
 import Link from "next/link";
@@ -9,7 +9,7 @@ import Stripe from "stripe";
 
 import 'keen-slider/keen-slider.min.css'
 import Head from "next/head";
-import { Handbag } from "phosphor-react";
+import ButtonBag from "components/ButtonBag";
 
 interface HomeProps {
   products: {
@@ -46,9 +46,7 @@ export default function Home({ products }: HomeProps) {
                     <span>{product.price}</span>
                   </InfoProduct>
 
-                  <ButtonAddBag>
-                    <Handbag size={32} />
-                  </ButtonAddBag>
+                  <ButtonBag svgColor="light" hasQuantity={false}/>
                 </footer>
               </Product>
             </Link>

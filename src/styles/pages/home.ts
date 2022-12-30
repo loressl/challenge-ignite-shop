@@ -67,19 +67,3 @@ export const InfoProduct = styled('div', {
   flexDirection: 'column',
   gap: '0.25rem',
 })
-
-export const ButtonAddBag = styled('button', {
-  width: '3.5rem',
-  height: '3.5rem',
-  borderRadius: 6,
-  background: "$green500",
-  cursor: 'pointer',
-
-  svg: {
-    color: "$gray100",
-  },
-
-  "&:hover": {
-    background:"$green300",
-  },
-})
