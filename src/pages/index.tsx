@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import Image from "next/image";
 import { HomeContainer, Product, InfoProduct } from "styles/pages/home";
 import { useKeenSlider } from 'keen-slider/react'
@@ -10,23 +11,26 @@ import Stripe from "stripe";
 import 'keen-slider/keen-slider.min.css'
 import Head from "next/head";
 import ButtonBag from "components/ButtonBag";
+import { IProduct, useCart } from "hooks/useCart";
 
 interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-  }[]
+  products: IProduct[]
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addProduct, disabledButtonAdd } = useCart()
+  
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
       spacing: 48
     }
   })
+
+  const handleAddProductToBag = (event: MouseEvent<HTMLButtonElement>, product: IProduct) => {
+    event.preventDefault()
+    addProduct(product)
+  }
 
   return (
     <>
@@ -46,7 +50,12 @@ export default function Home({ products }: HomeProps) {
                     <span>{product.price}</span>
                   </InfoProduct>
 
-                  <ButtonBag svgColor="light" hasQuantity={false}/>
+                  <ButtonBag 
+                    onClick={(e) => handleAddProductToBag(e, product)}
+                    svgColor="light" 
+                    hasQuantity={false}
+                    disabled={disabledButtonAdd(product.id)}
+                  />
                 </footer>
               </Product>
             </Link>

@@ -6,6 +6,11 @@ export const ButtonBagContainer = styled("button", {
   borderRadius: 6,
   cursor: "pointer",
 
+  '&:disabled':{
+    cursor: 'not-allowed',
+    opacity: '0.6',
+  },
+
   variants: {
     svgColor: {
       light: {

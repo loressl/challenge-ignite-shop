@@ -5,6 +5,7 @@ import { globalStyles } from 'styles/global'
 import { Container } from 'styles/pages/app'
 
 import HeaderComponent from 'components/Header'
+import { CartProvider } from 'hooks/useCart'
 
 const roboto = Roboto({
   weight: ["400" , "700"],
@@ -15,10 +16,12 @@ globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Container className={roboto.className}>
-      <HeaderComponent />
+    <CartProvider>
+      <Container className={roboto.className}>
+        <HeaderComponent />
 
-      <Component {...pageProps} />
-    </Container>
+        <Component {...pageProps} />
+      </Container>
+    </CartProvider>
   )
 }
