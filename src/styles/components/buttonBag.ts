@@ -5,6 +5,7 @@ export const ButtonBagContainer = styled("button", {
   height: "3.5rem",
   borderRadius: 6,
   cursor: "pointer",
+  position: 'relative',
 
   '&:disabled':{
     cursor: 'not-allowed',
@@ -50,8 +51,8 @@ export const ButtonBagContainer = styled("button", {
     borderRadius: '50%',
     padding: 0,
     position: 'absolute',
-    right: -4,
-    top: 165,
+    right:'-6px',
+    top: '-15px',
     gap: 8,
 
     fontSize: '1rem',

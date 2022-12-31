@@ -7,10 +7,10 @@ export const Header = styled("header", {
   margin: "0 auto",
 
   display: 'flex',
-  justifyContent: 'space-between',
+  //justifyContent: 'space-between',
   alignItems: 'center',
 
-  // button: {
-  //     marginLeft: 'auto',
-  // }
+  button: {
+      marginLeft: 'auto',
+  }
 });
