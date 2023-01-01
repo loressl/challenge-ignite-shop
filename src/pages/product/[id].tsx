@@ -3,40 +3,22 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import Image from 'next/image'
 import Head from "next/head";
 import { ImageContainer, ProductContainer, ProductDetails } from "styles/pages/product";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import Stripe from "stripe";
 import { stripe } from "lib/stripe";
+import { IProduct, useCart } from "hooks/useCart";
 
 interface ProductProps {
-    product: {
-        id: string
-        name: string
-        imageUrl: string
-        price: string
-        description: string
-        defaultPriceId: string
-    }
+    product: IProduct
 }
 
 export default function Product({ product }: ProductProps) {
     const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
+    const { addProduct, disabledButtonAdd } = useCart()
 
-    async function handleBuyButton() {
-        try {
-            setIsCreatingCheckoutSession(true);
-
-            const response = await axios.post('/api/checkout', {
-                priceId: product.defaultPriceId,
-            })
-
-            const { checkoutUrl } = response.data;
-
-            window.location.href = checkoutUrl;
-        } catch (err) {
-            setIsCreatingCheckoutSession(false);
-
-            alert('Falha ao redirecionar ao checkout!')
-        }
+    function handleBuyButton(event: MouseEvent<HTMLButtonElement>, product: IProduct) {
+        event.preventDefault()
+        addProduct(product)
     }
 
     return (
@@ -56,8 +38,8 @@ export default function Product({ product }: ProductProps) {
 
                     <p>{product.description}</p>
 
-                    <button disabled={isCreatingCheckoutSession} onClick={handleBuyButton}>
-                        Comprar agora
+                    <button disabled={disabledButtonAdd(product.id)} onClick={(e) => handleBuyButton(e, product)}>
+                        Colocar na sacola
                     </button>
                 </ProductDetails>
             </ProductContainer>
