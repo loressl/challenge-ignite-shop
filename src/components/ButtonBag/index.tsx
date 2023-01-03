@@ -11,7 +11,7 @@ export default function ButtonBag({hasQuantity, ...props}: ButtonBagProps) {
     const { bagQuantity } = useCart()
     
     return(
-        <ButtonBagContainer {...props}>
+        <ButtonBagContainer disabled={bagQuantity ===0} {...props}>
             <Handbag size={32} />
             {(hasQuantity && bagQuantity > 0) && <span>{bagQuantity}</span>}
         </ButtonBagContainer>

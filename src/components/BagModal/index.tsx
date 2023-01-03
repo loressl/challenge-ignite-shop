@@ -14,14 +14,23 @@ import { X } from 'phosphor-react'
 import { useCart } from 'hooks/useCart'
 import Image from 'next/image'
 import { formatPrice } from 'utils/format'
+import { useMemo } from 'react'
 
 export default function BagModal() {
-    const { items } = useCart()
+    const { items, buyProduct, removeProduct } = useCart()
 
-    const total = items.reduce((sumTotal, product) => {
+    const total = useMemo(() =>  items.reduce((sumTotal, product) => {
         sumTotal = sumTotal + product.numberPrice
         return sumTotal
-    }, 0)
+    }, 0), [items])
+
+    const handleBuyProduct = () =>{
+        buyProduct()
+    }
+
+    const handleRemoveProduct = (productId: string) => {
+        removeProduct(productId)
+    }
 
     return (
         <Dialog.Portal>
@@ -43,7 +52,7 @@ export default function BagModal() {
                                     <span>{product.name}</span>
                                     <strong>{product.price}</strong>
 
-                                    <button>
+                                    <button onClick={() => handleRemoveProduct(product.id)}>
                                         Remover
                                     </button>
                                 </ContainerInfo>
@@ -61,7 +70,7 @@ export default function BagModal() {
                         </div>
 
                     </DetailsContainer>
-                    <FinishBuy>Finalizar Compra</FinishBuy>
+                    <FinishBuy onClick={handleBuyProduct}>Finalizar Compra</FinishBuy>
             
                 </NavContainer>
             </Overlay>

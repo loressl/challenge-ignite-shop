@@ -158,5 +158,6 @@ export const FinishBuy = styled('button', {
   background: '$green500',
   fontSize: '1.125rem',
   fontWeight: 700,
-  color: '$white'
+  color: '$white',
+  cursor: 'pointer',
 })

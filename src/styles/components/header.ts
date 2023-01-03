@@ -7,10 +7,17 @@ export const Header = styled("header", {
   margin: "0 auto",
 
   display: 'flex',
-  //justifyContent: 'space-between',
   alignItems: 'center',
 
   button: {
       marginLeft: 'auto',
+  },
+
+  variants:{
+    isSuccess: {
+      true: {
+        justifyContent: 'center',
+      }
+    }
   }
 });

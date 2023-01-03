@@ -1,9 +1,8 @@
-import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from 'next/image'
 import Head from "next/head";
 import { ImageContainer, ProductContainer, ProductDetails } from "styles/pages/product";
-import { useState, MouseEvent } from "react";
+import { MouseEvent } from "react";
 import Stripe from "stripe";
 import { stripe } from "lib/stripe";
 import { IProduct, useCart } from "hooks/useCart";
@@ -13,7 +12,6 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
     const { addProduct, disabledButtonAdd } = useCart()
 
     function handleBuyButton(event: MouseEvent<HTMLButtonElement>, product: IProduct) {
@@ -77,7 +75,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
                     currency: 'BRL'
                 }).format(price.unit_amount / 100),
                 description: product.description,
-                defaultPriceId: price.id
+                defaultPriceId: price.id,
+                numberPrice: price.unit_amount && (price.unit_amount / 100),
             }
         },
         revalidate: 60 * 60 * 1 // 1 hours

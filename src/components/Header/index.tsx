@@ -14,7 +14,7 @@ export default function HeaderComponent() {
     const isRouteProduct = !pathname.includes('success')
 
     return (
-        <Header>
+        <Header isSuccess={!isRouteProduct}>
             <Link href="/">
                 <Image src={logoImg} alt="logo" />
             </Link>
